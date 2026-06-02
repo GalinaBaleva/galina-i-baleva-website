@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitenkarte – KI-Manager</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:   #00e5ff;
+      --accent2:  #7c4dff;
+      --bg-card:  #0d0f14;
+      --bg-page:  #05070c;
+      --text:     #e8eaf0;
+      --muted:    #6b7280;
+      --border:   rgba(0,229,255,0.18);
+    }
+
+    body {
+      background: var(--bg-page);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Card scene ── */
+    .scene {
+      width: 340px;   /* ~85mm scaled for screen */
+      height: 210px;  /* ~55mm scaled */
+      perspective: 900px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .7s cubic-bezier(.4,0,.2,1);
+      cursor: pointer;
+    }
+
+    .scene:hover .card,
+    .scene.flipped .card { transform: rotateY(180deg); }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    /* ── FRONT ── */
+    .front {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 28px;
+    }
+
+    /* grid-line decoration */
+    .front::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: .45;
+      pointer-events: none;
+    }
+
+    /* glow orb */
+    .front::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      right: -60px; top: -60px;
+      background: radial-gradient(circle, rgba(0,229,255,.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .front-top {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      z-index: 1;
+    }
+
+    .logo-mark {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #000;
+      letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0,229,255,.08);
+      border: 1px solid rgba(0,229,255,.25);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .front-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+    }
+
+    .title {
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .front-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: #9ca3af;
+      line-height: 1.7;
+    }
+
+    .contact-item svg { flex-shrink: 0; opacity: .7; }
+
+    .services-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: rgba(0,229,255,.75);
+      background: rgba(0,229,255,.07);
+      border: 1px solid rgba(0,229,255,.18);
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* accent bar */
+    .accent-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
+    }
+
+    /* ── BACK ── */
+    .back {
+      background: linear-gradient(135deg, #0a0d1a 0%, #0d0f14 60%, #101320 100%);
+      border: 1px solid var(--border);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px 28px;
+      position: relative;
+    }
+
+    .back::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,77,255,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .back-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-logo span { color: var(--accent); }
+
+    .back-tagline {
+      font-size: 10.5px;
+      color: #6b7280;
+      letter-spacing: .06em;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+
+    .back-divider {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      position: relative; z-index: 1;
+    }
+
+    .back-services {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative; z-index: 1;
+    }
+
+    .back-tag {
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .back-url {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: .04em;
+      position: relative; z-index: 1;
+      opacity: .85;
+    }
+
+    /* corner dots */
+    .corner {
+      position: absolute;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .4;
+    }
+    .corner.tl { top: 10px;  left:  10px; }
+    .corner.tr { top: 10px;  right: 10px; }
+    .corner.bl { bottom: 10px; left:  10px; }
+    .corner.br { bottom: 10px; right: 10px; }
+
+    /* ── Hint ── */
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hint::before, .hint::after {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--muted);
+      opacity: .4;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff; gap: 0; padding: 0; }
+      h1, .hint { display: none; }
+      .scene { break-inside: avoid; }
+      .scene:hover .card { transform: none; }
+      .card { transform: none !important; }
+      .back { display: none; }
+      .front { border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Visitenkarte Vorderseite &amp; Rückseite</h1>
+
+  <div class="scene" onclick="this.classList.toggle('flipped')" title="Klicken zum Umdrehen">
+    <div class="card">
+
+      <!-- FRONT -->
+      <div class="face front">
+        <div class="front-top">
+          <div class="logo-mark">KI</div>
+          <span class="badge">KI-Manager</span>
+        </div>
+
+        <div class="front-main">
+          <div class="name">Max Mustermann</div>
+          <div class="title">KI-Manager &amp; Full-Stack-Entwickler</div>
+        </div>
+
+        <div class="front-bottom">
+          <div>
+            <div class="contact-item">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 2.18h3a2 2 0 0 1 2 1.72c.13 1 .36 1.97.72 2.9a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.36 1.9.59 2.9.72a2 2 0 0 1 1.72 2.02z"/>
+              </svg>
+              +49 000 000 0000
+            </div>
+            <div class="contact-item">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              max@musterfirma.de
+            </div>
+            <div class="contact-item">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              www.musterfirma.de
+            </div>
+          </div>
+
+          <div class="services-tags">
+            <span class="tag">SEO</span>
+            <span class="tag">KI-Integration</span>
+            <span class="tag">Full-Stack</span>
+          </div>
+        </div>
+
+        <div class="accent-bar"></div>
+      </div>
+
+      <!-- BACK -->
+      <div class="face back">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <div class="back-logo">Muster<span>Firma</span></div>
+
+        <div class="back-divider"></div>
+
+        <div class="back-tagline">
+          Intelligente Lösungen für die digitale Zukunft.<br>
+          Wir verbinden Technologie mit Wachstum.
+        </div>
+
+        <div class="back-services">
+          <span class="back-tag">SEO-Optimierung</span>
+          <span class="back-tag">KI-Integration</span>
+          <span class="back-tag">Full-Stack-Entwicklung</span>
+        </div>
+
+        <div class="back-url">www.musterfirma.de</div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="hint">Hover oder klicken zum Umdrehen</p>
+
+</body>
+</html>
