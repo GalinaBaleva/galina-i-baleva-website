@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import Nav from "./components/Nav";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -29,7 +30,10 @@ export default function RootLayout({
       lang="bg"
       className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+          <Nav />
+          {children}
+        </body>
     </html>
   );
 }
