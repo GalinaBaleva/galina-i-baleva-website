@@ -3,7 +3,8 @@ export default function Home() {
     <main>
       <section
         id="hero"
-        className="relative min-h-screen flex items-center overflow-hidden px-[clamp(24px,8vw,120px)] pt-24"
+        className="relative min-h-screen overflow-hidden pb-20"
+        style={{ padding: '100px clamp(24px,8vw,120px) 80px' }}
       >
         {/* Mesh grid background */}
         <div className="absolute inset-0 mesh-grid pointer-events-none" />
