@@ -7,8 +7,8 @@
 
 ## Phase 2 — i18n & Types
 
-- [ ] `src/lib/i18n.ts` — copy the `translations` object (DE/RU) from `_templates/portfolio.html` and export it with proper TypeScript types
-- [ ] `src/lib/types.ts` — shared types: `Lang`, `Project`, `Skill`, etc.
+- [x] `src/lib/i18n.ts` — copy the `translations` object (DE/RU) from `_templates/portfolio.html` and export it with proper TypeScript types
+- [x] `src/lib/types.ts` — shared types: `Lang`, `Project`, `Skill`, etc.
 
 ## Phase 3 — Shared UI Components
 
