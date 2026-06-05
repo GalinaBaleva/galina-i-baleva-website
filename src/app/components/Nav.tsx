@@ -66,7 +66,7 @@ export default function Nav() {
           <li key={link.href}>
             <a
               href={link.href}
-              className={`text-[13.5px] font-medium tracking-[0.03em] no-underline transition-colors duration-200 ${
+              className={` ${
                 active === link.href.slice(1)
                   ? 'text-accent'
                   : 'text-muted hover:text-accent'
@@ -82,16 +82,13 @@ export default function Nav() {
       <div className="flex items-center gap-3">
 
         {/* Language switcher */}
-        <div className="flex gap-0.5 bg-white/5 border border-[var(--border)] rounded-lg p-0.5">
+        <div className="flex gap-2 bg-white/5 border border-[var(--border)] rounded-lg p-1">
           {LANGS.map((l) => (
             <button
               key={l}
               onClick={() => setLang(l)}
-              className={`px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-[0.08em] border-none cursor-pointer transition-all duration-200 ${
-                lang === l
-                  ? 'bg-accent text-black'
-                  : 'bg-transparent text-muted hover:text-white'
-              }`}
+              className={`lang-btn ${lang === l ? 'active' : ''}`}
+              data-active={lang === l}
             >
               {l}
             </button>

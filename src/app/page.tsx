@@ -1,3 +1,5 @@
+import Button from '@/components/ui/Button'
+
 export default function Home() {
   return (
     <main>
@@ -60,8 +62,8 @@ export default function Home() {
 
             {/* CTA buttons */}
             <div className="flex flex-wrap gap-3.5">
-              <a href="#projects" className="btn btn-primary">Моите проекти</a>
-              <a href="#contact"  className="btn btn-outline">Свържи се с мен</a>
+              <Button href="#projects">Моите проекти</Button>
+              <Button href="#contact" variant="outline">Свържи се с мен</Button>
             </div>
 
             {/* Stats */}
