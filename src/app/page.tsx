@@ -1,6 +1,12 @@
+'use client'
+
 import Button from '@/components/ui/Button'
+import { useLang } from '@/context/LangContext'
 
 export default function Home() {
+  const { t } = useLang()
+  const { hero } = t
+
   return (
     <main>
       <section
@@ -42,37 +48,33 @@ export default function Home() {
             {/* Status badge */}
             <div className="badge-accent inline-flex items-center gap-2 mb-7">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-[pulse_2s_ease-in-out_infinite]" />
-              Отворена за нови проекти
+              {hero.badge}
             </div>
 
             {/* Name */}
             <h1 className="font-heading text-[clamp(42px,7vw,82px)] font-bold text-white leading-[1.05] tracking-[-0.04em] mb-3">
-              Галина Балева
+              {hero.name}
             </h1>
 
             {/* Role */}
             <div className="gradient-text font-heading text-[clamp(22px,3.5vw,40px)] font-semibold leading-[1.2] tracking-[-0.02em] mb-6">
-              Full-Stack Developer &amp;<br></br> ИИ интегратор &amp; SEO&amp;GEO Specialist
+              {hero.role}
             </div>
 
             {/* Description */}
             <p className="text-muted text-base leading-[1.8] max-w-[520px] mb-10">
-              Изграждам мащабируеми уеб приложения, интегрирам ИИ решения и оптимизирам за търсачки — с фокус върху скорост, чистота и резултат.
+              {hero.description}
             </p>
 
             {/* CTA buttons */}
             <div className="flex flex-wrap gap-3.5">
-              <Button href="#projects">Моите проекти</Button>
-              <Button href="#contact" variant="outline">Свържи се с мен</Button>
+              <Button href="#projects">{hero.cta.primary}</Button>
+              <Button href="#contact" variant="outline">{hero.cta.secondary}</Button>
             </div>
 
             {/* Stats */}
             <div className="flex flex-wrap gap-8 mt-14 pt-10 border-t border-[var(--border)]">
-              {[
-                { value: "5",   suffix: "+", label: "Години опит" },
-                { value: "30",  suffix: "+", label: "Завършени проекти" },
-                { value: "100", suffix: "%", label: "Доволни клиенти" },
-              ].map((stat) => (
+              {hero.stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="font-heading text-[32px] font-bold text-white tracking-[-0.03em]">
                     {stat.value}<span className="text-accent">{stat.suffix}</span>
@@ -108,9 +110,9 @@ export default function Home() {
           >
             <path d="M12 5v14M5 12l7 7 7-7" />
           </svg>
-          Scroll
+          {hero.scroll}
         </div>
       </section>
     </main>
-  );
+  )
 }

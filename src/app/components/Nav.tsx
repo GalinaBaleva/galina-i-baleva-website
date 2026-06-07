@@ -1,37 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { LANGS, type Lang } from '@/lib/types'
-
-const links: Record<Lang, { href: string; label: string }[]> = {
-  BG: [
-    { href: '#about',    label: 'За мен' },
-    { href: '#skills',   label: 'Умения' },
-    { href: '#projects', label: 'Проекти' },
-    { href: '#contact',  label: 'Контакт' },
-  ],
-  DE: [
-    { href: '#about',    label: 'Über mich' },
-    { href: '#skills',   label: 'Fähigkeiten' },
-    { href: '#projects', label: 'Projekte' },
-    { href: '#contact',  label: 'Kontakt' },
-  ],
-  RU: [
-    { href: '#about',    label: 'Обо мне' },
-    { href: '#skills',   label: 'Навыки' },
-    { href: '#projects', label: 'Проекты' },
-    { href: '#contact',  label: 'Контакт' },
-  ],
-  EN: [
-    { href: '#about',    label: 'About' },
-    { href: '#skills',   label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#contact',  label: 'Contact' },
-  ],
-}
+import { LANGS } from '@/lib/types'
+import { useLang } from '@/context/LangContext'
 
 export default function Nav() {
-  const [lang, setLang]         = useState<Lang>('BG')
+  const { lang, setLang, t } = useLang()
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive]     = useState('')
 
@@ -47,8 +21,6 @@ export default function Nav() {
     return () => observer.disconnect()
   }, [])
 
-  const navLinks = links[lang]
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between h-16 bg-[rgba(5,7,12,.85)] backdrop-blur-[16px] border-b border-[var(--border)]" style={{ padding: '0 75px' }}>
 
@@ -62,7 +34,7 @@ export default function Nav() {
 
       {/* Desktop links */}
       <ul className="hidden md:flex items-center gap-8 list-none">
-        {navLinks.map((link) => (
+        {t.nav.links.map((link) => (
           <li key={link.href}>
             <a
               href={link.href}
@@ -109,7 +81,7 @@ export default function Nav() {
 
       {/* Mobile menu dropdown */}
       <div className={`md:hidden absolute top-16 left-0 right-0 bg-[rgba(5,7,12,.97)] border-b border-[var(--border)] px-6 flex flex-col gap-5 overflow-hidden transition-all duration-300 ${menuOpen ? 'py-6 opacity-100' : 'py-0 opacity-0 pointer-events-none'}`}>
-        {navLinks.map((link) => (
+        {t.nav.links.map((link) => (
           <a
             key={link.href}
             href={link.href}
