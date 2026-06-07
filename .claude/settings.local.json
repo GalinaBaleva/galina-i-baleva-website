@@ -4,7 +4,8 @@
       "Bash(npx create-next-app@latest nextapp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
       "Bash(npx playwright *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
