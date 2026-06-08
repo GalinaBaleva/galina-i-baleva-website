@@ -1,6 +1,8 @@
 'use client'
 
 import Button from '@/components/ui/Button'
+import PhotoFrame from '@/components/ui/PhotoFrame'
+import About from '@/components/sections/About'
 import { useLang } from '@/context/LangContext'
 
 export default function Home() {
@@ -88,13 +90,7 @@ export default function Home() {
           </div>
 
           {/* Photo */}
-          <div className="relative flex-shrink-0 w-[220px] h-[220px] md:w-[300px] md:h-[300px]">
-            <div className="photo-glow" />
-            <div className="photo-ring" />
-            <div className="photo-placeholder">
-              <span className="photo-initials">ГБ</span>
-            </div>
-          </div>
+          <PhotoFrame src="/galina.jpg" size={300} variant="cyan" />
         </div>
 
         {/* Scroll hint */}
@@ -113,6 +109,7 @@ export default function Home() {
           {hero.scroll}
         </div>
       </section>
+      <About />
     </main>
   )
 }

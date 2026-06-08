@@ -12,7 +12,7 @@
 
 ## Phase 3 — Shared UI Components
 
-- [ ] `src/components/ui/Button.tsx` — primary + outline variants
+- [x] `src/components/ui/Button.tsx` — primary + outline variants
 - [ ] `src/components/ui/SectionLabel.tsx` — the small uppercase label with the line before it
 - [ ] `src/components/ui/PhotoFrame.tsx` — circular photo with spinning ring + glow (used in Hero and About)
 

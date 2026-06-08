@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-Personal portfolio website for **Galina Baleva** — Full-Stack developer, AI integrator, SEO specialist based in Berlin. The site is multilingual (DE / RU) and includes a flip business card component.
+Personal portfolio website for **Galina Baleva** — Full-Stack developer, AI integrator, SEO specialist based in Vienna, Austria. The site is multilingual (DE / RU) and includes a flip business card component.
 
 The codebase is a **fresh Next.js scaffold** — `src/app/page.tsx` and `layout.tsx` are stock Create Next App files. The real work is porting the designs from `_templates/` into React components.
 
