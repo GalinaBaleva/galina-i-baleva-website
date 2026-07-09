@@ -38,4 +38,17 @@ export const ru = {
     cta1: 'Давайте сотрудничать',
     cta2: 'Смотреть проекты',
   },
+  skills: {
+    label: 'Навыки',
+    title: 'Что я предлагаю',
+    sub: 'От фронтенда до бэкенда, от SEO до интеграции ИИ — широкий спектр для вашего цифрового проекта.',
+    items: [
+      { icon: '🖥️', iconBg: 'rgba(0,229,255,.1)',   name: 'Frontend-разработка',   desc: 'Современные, адаптивные интерфейсы с React, TypeScript и CSS-анимациями.',              level: 92, tags: ['React','TypeScript','Next.js','CSS'] },
+      { icon: '⚙️', iconBg: 'rgba(124,77,255,.1)',  name: 'Backend-разработка',    desc: 'Масштабируемые REST API и серверная логика на Node.js и Python.',                        level: 88, tags: ['Node.js','Python','PostgreSQL','REST'] },
+      { icon: '🤖', iconBg: 'rgba(0,229,255,.1)',   name: 'Интеграция ИИ',          desc: 'Подключение LLM API, чат-ботов, автоматизаций и ИИ-функций.',                          level: 85, tags: ['OpenAI','LangChain','RAG','Agents'] },
+      { icon: '📈', iconBg: 'rgba(255,107,107,.1)', name: 'SEO-оптимизация',        desc: 'Техническое SEO, Core Web Vitals, структурированные данные и контент-стратегия.',       level: 90, tags: ['Core Web Vitals','Schema.org','Analytics'] },
+      { icon: '☁️', iconBg: 'rgba(124,77,255,.1)',  name: 'DevOps & Cloud',         desc: 'CI/CD-пайплайны, контейнеризация Docker и облачные деплойменты.',                      level: 78, tags: ['Docker','GitHub Actions','Vercel'] },
+      { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX-дизайн',           desc: 'Wireframing, прототипирование и дизайн-системы для консистентного UX.',               level: 80, tags: ['Figma','Design Systems','Accessibility'] },
+    ],
+  },
 }

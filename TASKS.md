@@ -18,8 +18,8 @@
 
 ## Phase 4 — Section Components
 
-- [ ] `src/components/sections/Hero.tsx`
-- [ ] `src/components/sections/About.tsx`
+- [x] `src/components/sections/Hero.tsx`
+- [x] `src/components/sections/About.tsx`
 - [ ] `src/components/sections/Skills.tsx` — includes `SkillCard` with animated bar
 - [ ] `src/components/sections/Projects.tsx` — includes `ProjectCard`
 - [ ] `src/components/sections/Contact.tsx` — info column + form

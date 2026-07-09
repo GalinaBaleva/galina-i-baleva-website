@@ -38,4 +38,17 @@ export const bg = {
     cta1: 'Нека си сътрудничим',
     cta2: 'Виж проектите',
   },
+  skills: {
+    label: 'Умения',
+    title: 'Какво нося със себе си',
+    sub: 'От фронтенд до бекенд, от SEO до ИИ интеграция — широк спектър за вашия дигитален проект.',
+    items: [
+      { icon: '🖥️', iconBg: 'rgba(0,229,255,.1)',   name: 'Frontend разработка',  desc: 'Модерни, responsive интерфейси с React, TypeScript и CSS анимации.',             level: 92, tags: ['React','TypeScript','Next.js','CSS'] },
+      { icon: '⚙️', iconBg: 'rgba(124,77,255,.1)',  name: 'Backend разработка',   desc: 'Мащабируеми REST API и сървърна логика с Node.js и Python.',                      level: 88, tags: ['Node.js','Python','PostgreSQL','REST'] },
+      { icon: '🤖', iconBg: 'rgba(0,229,255,.1)',   name: 'ИИ интеграция',        desc: 'Интеграция на LLM API, чатботове, автоматизации и ИИ функционалности.',           level: 85, tags: ['OpenAI','LangChain','RAG','Agents'] },
+      { icon: '📈', iconBg: 'rgba(255,107,107,.1)', name: 'SEO оптимизация',      desc: 'Техническо SEO, Core Web Vitals, структурирани данни и контент стратегия.',       level: 90, tags: ['Core Web Vitals','Schema.org','Analytics'] },
+      { icon: '☁️', iconBg: 'rgba(124,77,255,.1)',  name: 'DevOps & Cloud',        desc: 'CI/CD пайплайни, Docker контейнеризация и Cloud деплойменти.',                    level: 78, tags: ['Docker','GitHub Actions','Vercel'] },
+      { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX дизайн',         desc: 'Wireframing, прототипиране и дизайн системи за консистентно потребителско изживяване.', level: 80, tags: ['Figma','Design Systems','Accessibility'] },
+    ],
+  },
 }

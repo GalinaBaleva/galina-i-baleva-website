@@ -38,4 +38,17 @@ export const en = {
     cta1: 'Let\'s collaborate',
     cta2: 'View projects',
   },
+  skills: {
+    label: 'Skills',
+    title: 'What I bring to the table',
+    sub: 'From frontend to backend, from SEO to AI integration — a broad spectrum for your digital project.',
+    items: [
+      { icon: '🖥️', iconBg: 'rgba(0,229,255,.1)',   name: 'Frontend Development',  desc: 'Modern, responsive UIs with React, TypeScript and CSS animations.',                         level: 92, tags: ['React','TypeScript','Next.js','CSS'] },
+      { icon: '⚙️', iconBg: 'rgba(124,77,255,.1)',  name: 'Backend Development',   desc: 'Scalable REST APIs and server-side logic with Node.js and Python.',                         level: 88, tags: ['Node.js','Python','PostgreSQL','REST'] },
+      { icon: '🤖', iconBg: 'rgba(0,229,255,.1)',   name: 'AI Integration',         desc: 'Embedding LLM APIs, chatbots, automations and AI-powered features.',                       level: 85, tags: ['OpenAI','LangChain','RAG','Agents'] },
+      { icon: '📈', iconBg: 'rgba(255,107,107,.1)', name: 'SEO Optimisation',       desc: 'Technical SEO, Core Web Vitals, structured data and content strategy.',                    level: 90, tags: ['Core Web Vitals','Schema.org','Analytics'] },
+      { icon: '☁️', iconBg: 'rgba(124,77,255,.1)',  name: 'DevOps & Cloud',         desc: 'CI/CD pipelines, Docker containerisation and cloud deployments.',                          level: 78, tags: ['Docker','GitHub Actions','Vercel'] },
+      { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX Design',           desc: 'Wireframing, prototyping and design systems for consistent user experiences.',             level: 80, tags: ['Figma','Design Systems','Accessibility'] },
+    ],
+  },
 }
