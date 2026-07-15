@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button'
 import PhotoFrame from '@/components/ui/PhotoFrame'
 import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
+import Projects from '@/components/sections/Projects'
 import { useLang } from '@/context/LangContext'
 
 export default function Home() {
@@ -112,6 +113,7 @@ export default function Home() {
       </section>
       <About />
       <Skills />
+      <Projects />
     </main>
   )
 }

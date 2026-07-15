@@ -51,4 +51,14 @@ export const en = {
       { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX Design',           desc: 'Wireframing, prototyping and design systems for consistent user experiences.',             level: 80, tags: ['Figma','Design Systems','Accessibility'] },
     ],
   },
+  projects: {
+    label: 'Projects',
+    title: 'Selected Work',
+    sub: 'A selection of recent projects — from e-commerce to AI-powered platforms.',
+    items: [
+      { title: 'E-Commerce Platform',       desc: 'Full online-shop solution with payment integration, product management and technical SEO. Core Web Vitals score: 98/100.', live: '#', code: '#' },
+      { title: 'AI-Powered Customer Service', desc: 'Intelligent chatbot system with RAG architecture for a mid-size business. Reduced support requests by 60 %.', live: '#', code: '#' },
+      { title: 'Corporate SEO Relaunch',    desc: 'Complete website relaunch with an SEO focus. Organic traffic grew by 240 % in 3 months.', live: '#', code: '#' },
+    ],
+  },
 }

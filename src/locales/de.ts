@@ -51,4 +51,14 @@ export const de = {
       { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX-Design',           desc: 'Wireframing, Prototyping und Design-Systeme für konsistente Nutzererfahrungen.',            level: 80, tags: ['Figma','Design Systems','Accessibility'] },
     ],
   },
+  projects: {
+    label: 'Projekte',
+    title: 'Ausgewählte Arbeiten',
+    sub: 'Eine Auswahl aus meinen letzten Projekten — von E-Commerce bis KI-gestützten Plattformen.',
+    items: [
+      { title: 'E-Commerce-Plattform',          desc: 'Vollständige Online-Shop-Lösung mit Zahlungsintegration, Produktverwaltung und technischem SEO. Core Web Vitals Score: 98/100.', live: '#', code: '#' },
+      { title: 'KI-gestützter Kundenservice',   desc: 'Intelligentes Chatbot-System mit RAG-Architektur für ein mittelständisches Unternehmen. Reduzierte Support-Anfragen um 60 %.', live: '#', code: '#' },
+      { title: 'Corporate SEO-Relaunch',        desc: 'Kompletter Website-Relaunch mit SEO-Fokus. Organischer Traffic nach 3 Monaten um 240 % gesteigert.', live: '#', code: '#' },
+    ],
+  },
 }
