@@ -12,7 +12,7 @@ export default function About() {
   return (
     <section
       id="about"
-      style={{ padding: '100px clamp(24px,8vw,120px)', background: 'var(--bg)' }}
+      style={{ padding: '80px clamp(24px,8vw,120px)', background: 'var(--bg)' }}
     >
       <SectionLabel>{about.label}</SectionLabel>
       <h2 className="section-title">{about.title}</h2>

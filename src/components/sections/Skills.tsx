@@ -119,7 +119,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      style={{ padding: '100px clamp(24px,8vw,120px)', background: 'var(--bg2)' }}
+      style={{ padding: '80px clamp(24px,8vw,120px)', background: 'var(--bg2)' }}
     >
       <SectionLabel>{skills.label}</SectionLabel>
       <h2 className="section-title">{skills.title}</h2>

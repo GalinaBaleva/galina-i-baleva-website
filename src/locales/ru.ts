@@ -43,12 +43,10 @@ export const ru = {
     title: 'Что я предлагаю',
     sub: 'От фронтенда до бэкенда, от SEO до интеграции ИИ — широкий спектр для вашего цифрового проекта.',
     items: [
-      { icon: '🖥️', iconBg: 'rgba(0,229,255,.1)',   name: 'Frontend-разработка',   desc: 'Современные, адаптивные интерфейсы с React, TypeScript и CSS-анимациями.',              level: 92, tags: ['React','TypeScript','Next.js','CSS'] },
-      { icon: '⚙️', iconBg: 'rgba(124,77,255,.1)',  name: 'Backend-разработка',    desc: 'Масштабируемые REST API и серверная логика на Node.js и Python.',                        level: 88, tags: ['Node.js','Python','PostgreSQL','REST'] },
-      { icon: '🤖', iconBg: 'rgba(0,229,255,.1)',   name: 'Интеграция ИИ',          desc: 'Подключение LLM API, чат-ботов, автоматизаций и ИИ-функций.',                          level: 85, tags: ['OpenAI','LangChain','RAG','Agents'] },
-      { icon: '📈', iconBg: 'rgba(255,107,107,.1)', name: 'SEO-оптимизация',        desc: 'Техническое SEO, Core Web Vitals, структурированные данные и контент-стратегия.',       level: 90, tags: ['Core Web Vitals','Schema.org','Analytics'] },
-      { icon: '☁️', iconBg: 'rgba(124,77,255,.1)',  name: 'DevOps & Cloud',         desc: 'CI/CD-пайплайны, контейнеризация Docker и облачные деплойменты.',                      level: 78, tags: ['Docker','GitHub Actions','Vercel'] },
-      { icon: '🎨', iconBg: 'rgba(0,229,255,.1)',   name: 'UI/UX-дизайн',           desc: 'Wireframing, прототипирование и дизайн-системы для консистентного UX.',               level: 80, tags: ['Figma','Design Systems','Accessibility'] },
+      { icon: '🖥️', iconBg: 'rgba(0,229,255,.1)',   name: 'Frontend-разработка',   desc: 'Современные, адаптивные интерфейсы на React и TypeScript — управление состоянием, интеграция с API, тестирование, производительность и доступность.', level: 92, tags: ['React','TypeScript','JavaScript ES6+','Next.js','HTML5 / CSS3','Tailwind CSS','Redux','REST API','Jest','Responsive Design','Accessibility'] },
+      { icon: '⚙️', iconBg: 'rgba(124,77,255,.1)',  name: 'Backend-разработка',    desc: 'Надёжные REST API, серверная логика и полный бэкенд для MERN и Next.js приложений: Node.js, Express, MongoDB, аутентификация, WebSockets и Server Actions.', level: 88, tags: ['Node.js','Express.js','MongoDB','Mongoose','REST API','Next.js API Routes','TypeScript','JWT','WebSockets','Server Actions','MVC','Middleware'] },
+      { icon: '📈', iconBg: 'rgba(255,107,107,.1)', name: 'SEO/GEO-оптимизация',        desc: 'Полный SEO-аудит и стратегия: техническое SEO, Core Web Vitals, структурированные данные, ключевые слова, on-page оптимизация, контент-стратегия и локальное SEO с гео-таргетингом — для устойчивого органического роста.', level: 92, tags: ['Technical SEO','Core Web Vitals','Schema.org','GA4','Google Search Console','Keyword Research','On-Page SEO','Content Strategy','Local SEO','Google My Business','Geo-targeting','Local Citations'] },
+      { icon: '🧠', iconBg: 'rgba(124,77,255,.1)',  name: 'AI бизнес-стратегия',   desc: 'Разработка бизнес-стратегий с помощью инструментов ИИ — анализ, планирование и автоматизация процессов.', level: 88, tags: ['ChatGPT','AI Automation','Roadmapping','Consulting'] },
     ],
   },
   projects: {

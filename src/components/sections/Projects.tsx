@@ -189,7 +189,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      style={{ padding: '100px clamp(24px,8vw,120px)', background: 'var(--bg3)' }}
+      style={{ padding: '80px clamp(24px,8vw,120px)', background: 'var(--bg3)' }}
     >
       <SectionLabel>{projects.label}</SectionLabel>
       <h2 className="section-title">{projects.title}</h2>
