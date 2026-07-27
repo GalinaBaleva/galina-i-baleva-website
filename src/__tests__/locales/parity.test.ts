@@ -60,8 +60,8 @@ describe('locale section keys', () => {
       }
     })
 
-    it(`${name} skills has 6 items`, () => {
-      expect(locale.skills.items).toHaveLength(6)
+    it(`${name} skills has 4 items`, () => {
+      expect(locale.skills.items).toHaveLength(4)
     })
 
     it(`${name} skills items have required fields`, () => {

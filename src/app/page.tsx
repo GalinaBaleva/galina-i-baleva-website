@@ -1,5 +1,9 @@
 'use client'
 
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap } from '@/lib/animations'
+
 import Button from '@/components/ui/Button'
 import PhotoFrame from '@/components/ui/PhotoFrame'
 import About from '@/components/sections/About'
@@ -10,6 +14,19 @@ import { useLang } from '@/context/LangContext'
 export default function Home() {
   const { t } = useLang()
   const { hero } = t
+
+  const heroRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
+    tl.from('.hero-badge', { opacity: 0, y: 20, duration: 0.5 })
+      .from('.hero-name', { opacity: 0, y: 30, duration: 0.6 }, '-=0.2')
+      .from('.hero-role', { opacity: 0, y: 24, duration: 0.5 }, '-=0.3')
+      .from('.hero-desc', { opacity: 0, y: 20, duration: 0.5 }, '-=0.3')
+      .from('.hero-cta', { opacity: 0, y: 16, duration: 0.4 }, '-=0.2')
+      .from('.hero-stats', { opacity: 0, y: 16, duration: 0.4 }, '-=0.2')
+      .from('.hero-photo', { opacity: 0, y: 40, duration: 0.7 }, '-=0.6')
+  }, {scope: heroRef})
 
   return (
     <main>
@@ -45,39 +62,39 @@ export default function Home() {
         />
 
         {/* Hero layout */}
-        <div className="relative z-10 flex flex-col-reverse items-center gap-10 w-full md:flex-row md:justify-between md:gap-[60px]">
+        <div ref={heroRef} className="relative z-10 flex flex-col-reverse items-center gap-10 w-full md:flex-row md:justify-between md:gap-[60px]">
 
           {/* Text */}
           <div className="max-w-[700px]">
             {/* Status badge */}
-            <div className="badge-accent inline-flex items-center gap-2 mb-7">
+            <div className="badge-accent inline-flex items-center gap-2 mb-7 hero-badge">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-[pulse_2s_ease-in-out_infinite]" />
               {hero.badge}
             </div>
 
             {/* Name */}
-            <h1 className="font-heading text-[clamp(42px,7vw,82px)] font-bold text-white leading-[1.05] tracking-[-0.04em] mb-3">
+            <h1 className="font-heading text-[clamp(42px,7vw,82px)] font-bold text-white leading-[1.05] tracking-[-0.04em] mb-3 hero-name">
               {hero.name}
             </h1>
 
             {/* Role */}
-            <div className="gradient-text font-heading text-[clamp(22px,3.5vw,40px)] font-semibold leading-[1.2] tracking-[-0.02em] mb-6">
+            <div className="gradient-text font-heading text-[clamp(22px,3.5vw,40px)] font-semibold leading-[1.2] tracking-[-0.02em] mb-6 hero-role">
               {hero.role}
             </div>
 
             {/* Description */}
-            <p className="text-muted text-base leading-[1.8] max-w-[520px] mb-10">
+            <p className="text-muted text-base leading-[1.8] max-w-[520px] mb-10 hero-desc">
               {hero.description}
             </p>
 
             {/* CTA buttons */}
-            <div className="flex flex-wrap gap-3.5">
+            <div className="flex flex-wrap gap-3.5 hero-cta">
               <Button href="#projects">{hero.cta.primary}</Button>
               <Button href="#contact" variant="outline">{hero.cta.secondary}</Button>
             </div>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-8 mt-14 pt-10 border-t border-[var(--border)]">
+            <div className="flex flex-wrap gap-8 mt-14 pt-10 border-t border-[var(--border)] hero-stats">
               {hero.stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="font-heading text-[32px] font-bold text-white tracking-[-0.03em]">
@@ -92,7 +109,7 @@ export default function Home() {
           </div>
 
           {/* Photo */}
-          <PhotoFrame src="/galina.jpg" size={300} variant="cyan" />
+          <PhotoFrame src="/galina.jpg" size={300} variant="cyan" className="hero-photo" />
         </div>
 
         {/* Scroll hint */}

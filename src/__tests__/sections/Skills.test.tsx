@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import Skills from '@/components/sections/Skills'
 import { LangProvider } from '@/context/LangContext'
 import { bg } from '@/locales/bg'
@@ -37,7 +37,7 @@ describe('Skills section', () => {
     expect(screen.getByText(bg.skills.sub)).toBeInTheDocument()
   })
 
-  it('renders all 6 skill card names', () => {
+  it('renders all skill card names', () => {
     renderSkills()
     for (const item of bg.skills.items) {
       expect(screen.getByText(item.name)).toBeInTheDocument()
@@ -54,7 +54,8 @@ describe('Skills section', () => {
   it('displays level percentage for each skill', () => {
     renderSkills()
     for (const item of bg.skills.items) {
-      expect(screen.getByText(`${item.level}%`)).toBeInTheDocument()
+      const card = screen.getByText(item.name).parentElement as HTMLElement
+      expect(within(card).getByText(`${item.level}%`)).toBeInTheDocument()
     }
   })
 

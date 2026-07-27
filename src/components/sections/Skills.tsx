@@ -1,5 +1,6 @@
 'use client'
-
+import { useGSAP } from '@gsap/react'
+import { gsap } from '@/lib/animations'
 import { useEffect, useRef, useState } from 'react'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { useLang } from '@/context/LangContext'
@@ -16,6 +17,10 @@ type SkillItem = {
 function SkillCard({ skill }: { skill: SkillItem }) {
   const [barWidth, setBarWidth] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+
+  const sectionRef = useRef<HTMLElement>(null)
+
+  
 
   useEffect(() => {
     const el = ref.current
