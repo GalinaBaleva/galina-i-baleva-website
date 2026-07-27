@@ -1,0 +1,31 @@
+# ============================================================
+#  robots.txt — Galina Baleva Portfolio
+#  https://galina-baleva.com
+# ============================================================
+
+# --- DEVELOPMENT: site not ready for indexing ---
+# Remove the two lines below before going live.
+User-agent: *
+Disallow: /
+
+# ============================================================
+#  PRODUCTION TEMPLATE — uncomment when live
+# ============================================================
+
+# Allow all well-behaved crawlers
+# User-agent: *
+# Allow: /
+# Disallow: /api/
+
+# Block known scrapers and data harvesters
+# User-agent: AhrefsBot
+# Disallow: /
+
+# User-agent: SemrushBot
+# Disallow: /
+
+# User-agent: MJ12bot
+# Disallow: /
+
+# Sitemap location
+Sitemap: https://galina-baleva.com/sitemap.xml
