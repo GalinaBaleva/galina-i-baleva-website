@@ -1,5 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap } from '@/lib/animations'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { useLang } from '@/context/LangContext'
 
@@ -21,9 +24,9 @@ type ProjectItem = {
 }
 
 const TAG_STYLES: Record<TagColor, React.CSSProperties> = {
-  cyan:   { background: 'rgba(0,229,255,.08)',   color: '#67e8f9', border: '1px solid rgba(0,229,255,.2)' },
-  purple: { background: 'rgba(124,77,255,.08)',  color: '#a78bfa', border: '1px solid rgba(124,77,255,.2)' },
-  red:    { background: 'rgba(255,107,107,.08)', color: '#fca5a5', border: '1px solid rgba(255,107,107,.2)' },
+  cyan: { background: 'rgba(0,229,255,.08)', color: '#67e8f9', border: '1px solid rgba(0,229,255,.2)' },
+  purple: { background: 'rgba(124,77,255,.08)', color: '#a78bfa', border: '1px solid rgba(124,77,255,.2)' },
+  red: { background: 'rgba(255,107,107,.08)', color: '#fca5a5', border: '1px solid rgba(255,107,107,.2)' },
 }
 
 const PROJECTS: Omit<ProjectItem, 'title' | 'desc' | 'live' | 'code'>[] = [
@@ -33,7 +36,7 @@ const PROJECTS: Omit<ProjectItem, 'title' | 'desc' | 'live' | 'code'>[] = [
     tags: [
       { label: 'Next.js', color: 'cyan' },
       { label: 'Node.js', color: 'purple' },
-      { label: 'SEO',     color: 'red' },
+      { label: 'SEO', color: 'red' },
     ],
   },
   {
@@ -41,8 +44,8 @@ const PROJECTS: Omit<ProjectItem, 'title' | 'desc' | 'live' | 'code'>[] = [
     thumbGradient: 'linear-gradient(135deg,#1a0d2a,#200a40)',
     tags: [
       { label: 'OpenAI', color: 'purple' },
-      { label: 'React',  color: 'cyan' },
-      { label: 'RAG',    color: 'purple' },
+      { label: 'React', color: 'cyan' },
+      { label: 'RAG', color: 'purple' },
     ],
   },
   {
@@ -50,7 +53,7 @@ const PROJECTS: Omit<ProjectItem, 'title' | 'desc' | 'live' | 'code'>[] = [
     thumbGradient: 'linear-gradient(135deg,#0a1a0d,#0d2a10)',
     tags: [
       { label: 'WordPress', color: 'cyan' },
-      { label: 'SEO',       color: 'red' },
+      { label: 'SEO', color: 'red' },
       { label: 'Analytics', color: 'purple' },
     ],
   },
@@ -68,7 +71,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         flexDirection: 'column',
         transition: 'border-color .25s, transform .25s, box-shadow .25s',
       }}
-      className="hover:-translate-y-[5px] hover:border-[rgba(124,77,255,.45)] hover:shadow-[0_14px_48px_rgba(124,77,255,.1)]"
+      className="hover:-translate-y-[5px] hover:border-[rgba(124,77,255,.45)] hover:shadow-[0_14px_48px_rgba(124,77,255,.1)] project-card"
     >
       {/* Thumbnail */}
       <div
@@ -178,22 +181,39 @@ export default function Projects() {
   const { t } = useLang()
   const { projects } = t
 
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.from('.projects-header', {
+      scrollTrigger: { trigger: '.projects-header', start: 'top 85%' },
+      opacity: 0, y: 30, duration: 1, ease: 'power1.out',
+    })
+    gsap.from('.project-card', {
+      scrollTrigger: { trigger: '.project-card', start: 'top 90%' },
+      opacity: 0, y: 40, duration: 1, ease: 'power3.out',
+      stagger: 0.20,
+    })
+  }, { scope: sectionRef })
+
   const cards: ProjectItem[] = PROJECTS.map((p, i) => ({
     ...p,
     title: projects.items[i].title,
-    desc:  projects.items[i].desc,
-    live:  projects.items[i].live,
-    code:  projects.items[i].code,
+    desc: projects.items[i].desc,
+    live: projects.items[i].live,
+    code: projects.items[i].code,
   }))
 
   return (
     <section
       id="projects"
       style={{ padding: '80px clamp(24px,8vw,120px)', background: 'var(--bg3)' }}
+      ref={sectionRef}
     >
-      <SectionLabel>{projects.label}</SectionLabel>
-      <h2 className="section-title">{projects.title}</h2>
-      <p className="section-sub">{projects.sub}</p>
+      <div className="projects-header">
+        <SectionLabel>{projects.label}</SectionLabel>
+        <h2 className="section-title">{projects.title}</h2>
+        <p className="section-sub">{projects.sub}</p>
+      </div>
 
       <div
         style={{
