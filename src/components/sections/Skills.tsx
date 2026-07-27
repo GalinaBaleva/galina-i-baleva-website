@@ -18,10 +18,6 @@ function SkillCard({ skill }: { skill: SkillItem }) {
   const [barWidth, setBarWidth] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
 
-  const sectionRef = useRef<HTMLElement>(null)
-
-  
-
   useEffect(() => {
     const el = ref.current
     if (!el) return
@@ -48,7 +44,7 @@ function SkillCard({ skill }: { skill: SkillItem }) {
         padding: 28,
         transition: 'border-color .25s, transform .25s, box-shadow .25s',
       }}
-      className="hover:-translate-y-1 hover:border-[rgba(0,229,255,.4)] hover:shadow-[0_12px_40px_rgba(0,229,255,.08)]"
+      className="hover:-translate-y-1 hover:border-[rgba(0,229,255,.4)] hover:shadow-[0_12px_40px_rgba(0,229,255,.08)] skill-card"
     >
       {/* Icon */}
       <div
@@ -121,15 +117,30 @@ export default function Skills() {
   const { t } = useLang()
   const { skills } = t
 
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.from('.skills-header', {
+      scrollTrigger: { trigger: '.skills-header', start: 'top 85%' },
+      opacity: 0, y: 30, duration: 0.6, ease: 'power1.out', stagger: 0.20,
+    })
+    gsap.from('.skill-card', {
+      scrollTrigger: { trigger: '.skill-card', start: 'top 90%' },
+      opacity: 0, y: 20, duration: 0.5, ease: 'power1.out', stagger: 0.20,
+    })
+  }, { scope: sectionRef })
+
   return (
     <section
       id="skills"
       style={{ padding: '80px clamp(24px,8vw,120px)', background: 'var(--bg2)' }}
+      ref={sectionRef}
     >
-      <SectionLabel>{skills.label}</SectionLabel>
-      <h2 className="section-title">{skills.title}</h2>
-      <p className="section-sub">{skills.sub}</p>
-
+      <div className="skills-header">
+        <SectionLabel>{skills.label}</SectionLabel>
+        <h2 className="section-title">{skills.title}</h2>
+        <p className="section-sub">{skills.sub}</p>
+      </div>
       <div
         style={{
           display: 'grid',
