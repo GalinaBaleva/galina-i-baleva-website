@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Galina Baleva",
+  title: "Galina Baleva - Full-Stack Developer · AI Integrator · SEO/GEO Specialist",
   description: "Full-Stack Developer · AI Integrator · SEO Specialist",
   robots: { index: false, follow: false },
 };

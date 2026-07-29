@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '@/lib/animations'
 import Image from 'next/image'
@@ -20,7 +20,7 @@ const CERTIFICATES: Certificate[] = [
   { file: '/my_certificates/Galina-Baleva_Node_JS-1.png', type: 'image', name: 'Learn Node.js Course', issuer: 'Codecademy', issued: '05.02.2025', period: '2025' },
   { file: '/my_certificates/Full_Stack_JavaScript_Developer_WIFI_Certifecate-1.png', type: 'image', name: 'Full-Stack JavaScript Developer', issuer: 'WIFI / WKO Wien', issued: '06.06.2025', period: '2024 – 2025 · 149 LE' },
   { file: '/my_certificates/Diplom_KIM_Galina Baleva.jpg', type: 'image', name: 'Diplom AI Management', issuer: 'digitalworld Academy', issued: '29.06.2026', period: '2026 · 165 UE' },
-  { file: '/my_certificates/SEO Certificate_page-0001.jpg', type: 'image', name: 'Professional SEO Course', issuer: 'SEOM / Cloxy', issued: '—', period: '—' },  
+  { file: '/my_certificates/SEO Certificate_page-0001.jpg', type: 'image', name: 'Professional SEO Course', issuer: 'SEOM / Cloxy', issued: '—', period: '—' },
   { file: '/my_certificates/JavaScript Certificate-3.png', type: 'image', name: 'Programming Fundamentals with JS', issuer: 'Software University', issued: '18.08.2021', period: 'May – Aug 2021' },
   { file: '/my_certificates/JavaScript Certificate-4.png', type: 'image', name: 'Programming Basics', issuer: 'Software University', issued: '31.05.2021', period: 'Apr – May 2021' },
   { file: '/my_certificates/Galina-Baleva-Skill-Path.png', type: 'image', name: 'Learn PHP Skill Path', issuer: 'Codecademy', issued: '03.01.2025', period: '2024 – 2025' },
@@ -47,12 +47,14 @@ function MetaRow({ icon, label, value }: { icon: string; label: string; value: s
   )
 }
 
-function CertCard({ cert, labels }: {
+function CertCard({ cert, labels, onClick }: {
   cert: Certificate
   labels: { issued: string; period: string; issuer: string; view: string }
+  onClick: () => void
 }) {
   return (
     <div
+      onClick={onClick}
       style={{
         width: CARD_W,
         flexShrink: 0,
@@ -63,6 +65,7 @@ function CertCard({ cert, labels }: {
         display: 'flex',
         flexDirection: 'column',
         transition: 'border-color .25s, box-shadow .25s',
+        cursor: 'pointer',
       }}
       className="hover:border-[rgba(0,229,255,.4)] hover:shadow-[0_12px_40px_rgba(0,229,255,.08)]"
     >
@@ -134,6 +137,15 @@ export default function Certificates() {
   const trackRef = useRef<HTMLDivElement>(null)
   const dirRef = useRef(0)
   const xRef = useRef(-(CARD_W / 2))
+  const [lightbox, setLightbox] = useState<Certificate | null>(null)
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
 
   useEffect(() => {
     if (trackRef.current) {
@@ -208,6 +220,7 @@ export default function Certificates() {
             <CertCard
               key={cert.file}
               cert={cert}
+              onClick={() => setLightbox(cert)}
               labels={{
                 issued: certificates.issued,
                 period: certificates.period,
@@ -250,6 +263,82 @@ export default function Certificates() {
           <Arrow direction="right" />
         </div>
       </div>
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(5, 7, 12, 0.88)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 24,
+          }}
+        >
+          {/* X кнопка */}
+          <button
+            onClick={() => setLightbox(null)}
+            style={{
+              position: 'fixed',
+              top: 20,
+              right: 24,
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              border: '1px solid rgba(255,255,255,0.2)',
+              background: 'rgba(255,255,255,0.08)',
+              color: '#fff',
+              fontSize: 18,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: 1,
+            }}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+
+          {/* Изображение — клик по нему не закрывает */}
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 16,
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+            }}
+          >
+            <img
+              src={lightbox.file}
+              alt={lightbox.name}
+              style={{
+                maxWidth: '88vw',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: 10,
+                boxShadow: '0 32px 80px rgba(0,0,0,.7)',
+                display: 'block',
+              }}
+            />
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>
+                {lightbox.name}
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>
+                {lightbox.issuer} · {lightbox.issued}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
