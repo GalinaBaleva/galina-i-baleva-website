@@ -6,7 +6,7 @@ import { gsap } from '@/lib/animations'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { useLang } from '@/context/LangContext'
 
-const EMAIL = 'baleva1990@gmail.com'
+const EMAIL = 'baleva.i.galina@gmail.com'
 const GITHUB = 'https://github.com/GalinaBaleva'
 const LINKEDIN = 'https://www.linkedin.com/in/galina-baleva-4a4019bb/'
 
