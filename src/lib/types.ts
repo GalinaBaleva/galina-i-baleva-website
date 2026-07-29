@@ -1,4 +1,4 @@
-export const LANGS = ['BG', 'DE', 'RU', 'EN'] as const
+export const LANGS = ['DE', 'EN', 'BG', 'RU'] as const
 export type Lang = (typeof LANGS)[number]
 
 export interface NavLink {

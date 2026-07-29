@@ -89,6 +89,16 @@ h1, h2, h3, h4, h5, h6 {
   50%       { opacity: 1;   transform: translateX(-50%) translateY(6px); }
 }
 
+@keyframes fadeRight {
+  0%, 100% { opacity: 0.35; transform: translateX(0); }
+  50%       { opacity: 1;   transform: translateX(6px); }
+}
+
+@keyframes fadeLeft {
+  0%, 100% { opacity: 0.35; transform: translateX(0); }
+  50%       { opacity: 1;   transform: translateX(-6px); }
+}
+
 /* ════════════════════════════════════════
    SCROLL REVEAL
 ════════════════════════════════════════ */
