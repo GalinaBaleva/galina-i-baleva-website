@@ -60,11 +60,10 @@ export default function Contact() {
         <h2 className="section-title">{contact.title}</h2>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48 }}
-           className="md:grid-cols-[1fr_1.4fr]">
+      <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
         {/* Left — info */}
-        <div className="contact-info">
+        <div className="contact-info" style={{ flex: '1 1 280px' }}>
           <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.8, marginBottom: 36 }}>
             {contact.desc}
           </p>
@@ -119,7 +118,17 @@ export default function Contact() {
 
         {/* Right — form */}
         <form className="contact-form" onSubmit={handleSubmit} noValidate
-              style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              style={{
+                flex: '1.4 1 360px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 20,
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius)',
+                padding: 'clamp(24px, 4vw, 40px)',
+                boxShadow: '0 8px 40px rgba(0,229,255,.05)',
+              }}>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
                className="max-sm:grid-cols-1">
