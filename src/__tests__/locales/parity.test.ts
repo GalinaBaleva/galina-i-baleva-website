@@ -35,9 +35,9 @@ describe('locale section keys', () => {
       expect(locale.nav.links).toHaveLength(4)
     })
 
-    it(`${name} nav links all have href and label`, () => {
+    it(`${name} nav links all have section and label`, () => {
       for (const link of locale.nav.links) {
-        expect(link.href).toMatch(/^#/)
+        expect(link.section).toBeTruthy()
         expect(link.label).toBeTruthy()
       }
     })

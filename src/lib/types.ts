@@ -2,7 +2,7 @@ export const LANGS = ['DE', 'EN', 'BG', 'RU'] as const
 export type Lang = (typeof LANGS)[number]
 
 export interface NavLink {
-  href: string
+  section: string
   label: string
 }
 

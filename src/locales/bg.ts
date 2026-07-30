@@ -1,10 +1,10 @@
 export const bg = {
   nav: {
     links: [
-      { href: '#about',    label: 'За мен' },
-      { href: '#skills',   label: 'Умения' },
-      { href: '#certificates', label: 'Сертификати' },
-      { href: '#contact',  label: 'Контакт' },
+      { section: 'about',        label: 'За мен' },
+      { section: 'skills',       label: 'Умения' },
+      { section: 'certificates', label: 'Сертификати' },
+      { section: 'contact',      label: 'Контакт' },
     ],
   },
   hero: {

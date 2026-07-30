@@ -1,62 +1,70 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import { LANGS } from '@/lib/types'
 import { useLang } from '@/context/LangContext'
+import { SLUGS, slugToSection } from '@/lib/i18n/slugs'
+import type { SectionId } from '@/lib/i18n/slugs'
+import type { Lang } from '@/lib/types'
 
 export default function Nav() {
   const { lang, setLang, t } = useLang()
+  const router = useRouter()
+  const pathname = usePathname()
   const [menuOpen, setMenuOpen]       = useState(false)
   const [langDropOpen, setLangDropOpen] = useState(false)
-  const [active, setActive]           = useState('')
 
-  useEffect(() => {
-    if (!langDropOpen) return
-    const close = (e: MouseEvent) => {
-      const target = e.target as Element
-      if (!target.closest('.lang-drop')) setLangDropOpen(false)
+  // Determine active section from URL: /de/fahigkeiten → 'skills'
+  const slugInPath = pathname.split('/')[2]
+  const activeSection: SectionId | null = slugInPath
+    ? slugToSection(lang, slugInPath)
+    : null
+
+  function navHref(section: string): string {
+    return `/${lang.toLowerCase()}/${SLUGS[lang][section as SectionId]}`
+  }
+
+  function handleLangChange(newLang: Lang) {
+    setLang(newLang)
+    // Stay on same section in new language
+    if (activeSection) {
+      const newSlug = SLUGS[newLang][activeSection]
+      router.push(`/${newLang.toLowerCase()}/${newSlug}`)
+    } else {
+      router.push(`/${newLang.toLowerCase()}`)
     }
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [langDropOpen])
-
-  useEffect(() => {
-    const sections = document.querySelectorAll('section[id]')
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) })
-      },
-      { rootMargin: '-40% 0px -55% 0px' }
-    )
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
-  }, [])
+    setLangDropOpen(false)
+  }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between h-16 bg-[rgba(5,7,12,.85)] backdrop-blur-[16px] border-b border-[var(--border)]" style={{ padding: '0 75px' }}>
-
+    <nav
+      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between h-16 bg-[rgba(5,7,12,.85)] backdrop-blur-[16px] border-b border-[var(--border)]"
+      style={{ padding: '0 75px' }}
+    >
       {/* Logo */}
-      <a
-        href="#hero"
+      <Link
+        href={`/${lang.toLowerCase()}`}
         className="font-heading font-bold text-[18px] tracking-[-0.02em] text-white no-underline"
       >
         galina<span className="text-accent">.</span>
-      </a>
+      </Link>
 
       {/* Desktop links */}
       <ul className="hidden md:flex items-center gap-8 list-none">
         {t.nav.links.map((link) => (
-          <li key={link.href}>
-            <a
-              href={link.href}
-              className={` ${
-                active === link.href.slice(1)
+          <li key={link.section}>
+            <Link
+              href={navHref(link.section)}
+              className={`transition-colors duration-200 ${
+                activeSection === link.section
                   ? 'text-accent'
                   : 'text-muted hover:text-accent'
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -64,12 +72,12 @@ export default function Nav() {
       {/* Right: lang switcher + hamburger */}
       <div className="flex items-center gap-3">
 
-        {/* Language switcher — desktop: row of buttons */}
+        {/* Language switcher — desktop */}
         <div className="hidden md:flex gap-2 bg-white/5 border border-[var(--border)] rounded-lg p-1">
           {LANGS.map((l) => (
             <button
               key={l}
-              onClick={() => setLang(l)}
+              onClick={() => handleLangChange(l)}
               className={`lang-btn ${lang === l ? 'active' : ''}`}
               data-active={lang === l}
             >
@@ -78,7 +86,7 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Language switcher — mobile: dropdown */}
+        {/* Language switcher — mobile dropdown */}
         <div className="relative md:hidden lang-drop">
           <button
             onClick={() => setLangDropOpen((v) => !v)}
@@ -97,7 +105,7 @@ export default function Nav() {
               {LANGS.filter((l) => l !== lang).map((l) => (
                 <button
                   key={l}
-                  onClick={() => { setLang(l); setLangDropOpen(false) }}
+                  onClick={() => handleLangChange(l)}
                   className="lang-btn px-4 py-2 text-left hover:text-accent"
                 >
                   {l}
@@ -119,17 +127,17 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile menu */}
       <div className={`md:hidden absolute top-16 left-0 right-0 bg-[rgba(5,7,12,.97)] border-b border-[var(--border)] px-6 flex flex-col items-center gap-5 overflow-hidden transition-all duration-300 ${menuOpen ? 'py-6 opacity-100' : 'py-0 opacity-0 pointer-events-none'}`}>
         {t.nav.links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
+          <Link
+            key={link.section}
+            href={navHref(link.section)}
             onClick={() => setMenuOpen(false)}
             className="text-[15px] font-medium text-muted hover:text-accent transition-colors duration-200 no-underline"
           >
             {link.label}
-          </a>
+          </Link>
         ))}
       </div>
     </nav>

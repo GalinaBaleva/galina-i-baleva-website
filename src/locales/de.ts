@@ -1,10 +1,10 @@
 export const de = {
   nav: {
     links: [
-      { href: '#about',    label: 'Über mich' },
-      { href: '#skills',   label: 'Fähigkeiten' },
-      { href: '#certificates', label: 'Zertifikate' },
-      { href: '#contact',  label: 'Kontakt' },
+      { section: 'about',        label: 'Über mich' },
+      { section: 'skills',       label: 'Fähigkeiten' },
+      { section: 'certificates', label: 'Zertifikate' },
+      { section: 'contact',      label: 'Kontakt' },
     ],
   },
   hero: {

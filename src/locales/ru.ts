@@ -1,10 +1,10 @@
 export const ru = {
   nav: {
     links: [
-      { href: '#about',    label: 'Обо мне' },
-      { href: '#skills',   label: 'Навыки' },
-      { href: '#certificates', label: 'Сертификаты' },
-      { href: '#contact',  label: 'Контакт' },
+      { section: 'about',        label: 'Обо мне' },
+      { section: 'skills',       label: 'Навыки' },
+      { section: 'certificates', label: 'Сертификаты' },
+      { section: 'contact',      label: 'Контакт' },
     ],
   },
   hero: {
