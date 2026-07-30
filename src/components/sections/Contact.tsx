@@ -33,20 +33,9 @@ export default function Contact() {
     })
   }, { scope: sectionRef })
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStatus('sending')
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fields),
-      })
-      setStatus(res.ok ? 'success' : 'error')
-      if (res.ok) setFields({ name: '', email: '', subject: '', message: '' })
-    } catch {
-      setStatus('error')
-    }
+    // TODO: wire up DB + security filters before enabling
   }
 
   return (
