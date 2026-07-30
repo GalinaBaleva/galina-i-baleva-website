@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
 const VALID_LANGS = ['bg', 'de', 'ru', 'en']
 const DEFAULT_LANG = 'bg'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Skip static files, API routes, Next internals
