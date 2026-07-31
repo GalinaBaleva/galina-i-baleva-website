@@ -7,22 +7,25 @@ const BASE = 'https://galina-baleva.com'
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
-  // Home pages per language
+  // Home pages per language (DE is at root /)
   for (const lang of VALID_LANGS) {
     entries.push({
-      url: `${BASE}/${lang.toLowerCase()}`,
+      url: lang === 'DE' ? BASE : `${BASE}/${lang.toLowerCase()}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
     })
   }
 
-  // Section pages per language
+  // Section pages per language (DE slugs are at root /uber-mich etc.)
   const sections: SectionId[] = ['about', 'skills', 'certificates', 'contact']
   for (const lang of VALID_LANGS) {
     for (const section of sections) {
+      const url = lang === 'DE'
+        ? `${BASE}/${SLUGS[lang][section]}`
+        : `${BASE}/${lang.toLowerCase()}/${SLUGS[lang][section]}`
       entries.push({
-        url: `${BASE}/${lang.toLowerCase()}/${SLUGS[lang][section]}`,
+        url,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,

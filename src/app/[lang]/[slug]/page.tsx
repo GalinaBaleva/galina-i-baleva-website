@@ -46,9 +46,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 
   const meta = sectionMeta[section]
+  const canonical = lang === 'DE'
+    ? `https://galina-baleva.com/${slug}`
+    : `https://galina-baleva.com/${langParam}/${slug}`
+
   return {
     title: `${meta.title} | Galina Baleva`,
     description: meta.description,
+    alternates: { canonical },
   }
 }
 

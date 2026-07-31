@@ -16,24 +16,22 @@ export default function Nav() {
   const [menuOpen, setMenuOpen]       = useState(false)
   const [langDropOpen, setLangDropOpen] = useState(false)
 
-  // Determine active section from URL: /de/fahigkeiten → 'skills'
-  const slugInPath = pathname.split('/')[2]
-  const activeSection: SectionId | null = slugInPath
-    ? slugToSection(lang, slugInPath)
-    : null
+  // DE urls are at root (/uber-mich), others are prefixed (/bg/za-men)
+  const rawSlug = lang === 'DE' ? pathname.split('/')[1] : pathname.split('/')[2]
+  const activeSection: SectionId | null = rawSlug ? slugToSection(lang, rawSlug) : null
 
   function navHref(section: string): string {
+    if (lang === 'DE') return `/${SLUGS.DE[section as SectionId]}`
     return `/${lang.toLowerCase()}/${SLUGS[lang][section as SectionId]}`
   }
 
   function handleLangChange(newLang: Lang) {
     setLang(newLang)
-    // Stay on same section in new language
     if (activeSection) {
       const newSlug = SLUGS[newLang][activeSection]
-      router.push(`/${newLang.toLowerCase()}/${newSlug}`)
+      router.push(newLang === 'DE' ? `/${newSlug}` : `/${newLang.toLowerCase()}/${newSlug}`)
     } else {
-      router.push(`/${newLang.toLowerCase()}`)
+      router.push(newLang === 'DE' ? '/' : `/${newLang.toLowerCase()}`)
     }
     setLangDropOpen(false)
   }
@@ -45,7 +43,7 @@ export default function Nav() {
     >
       {/* Logo */}
       <Link
-        href={`/${lang.toLowerCase()}`}
+        href={lang === 'DE' ? '/' : `/${lang.toLowerCase()}`}
         className="font-heading font-bold text-[18px] tracking-[-0.02em] text-white no-underline"
       >
         galina<span className="text-accent">.</span>
