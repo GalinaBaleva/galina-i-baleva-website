@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { slugToSection, SLUGS, parseLang, VALID_LANGS } from '@/lib/i18n/slugs'
+import { slugToSection, SLUGS, parseLang, VALID_LANGS, sectionSlug } from '@/lib/i18n/slugs'
 import type { SectionId } from '@/lib/i18n/slugs'
 import { dict } from '@/locales'
 
@@ -45,15 +45,22 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     projects:     { title: t.projects.title,     description: t.projects.sub },
   }
 
-  const meta = sectionMeta[section]
+  const BASE = 'https://galina-baleva.com'
   const canonical = lang === 'DE'
-    ? `https://galina-baleva.com/${slug}`
-    : `https://galina-baleva.com/${langParam}/${slug}`
+    ? `${BASE}/${slug}`
+    : `${BASE}/${langParam}/${slug}`
 
+  const languages: Record<string, string> = { 'x-default': `${BASE}/${sectionSlug('DE', section)}` }
+  for (const l of VALID_LANGS) {
+    const s = sectionSlug(l, section)
+    languages[l.toLowerCase()] = l === 'DE' ? `${BASE}/${s}` : `${BASE}/${l.toLowerCase()}/${s}`
+  }
+
+  const meta = sectionMeta[section]
   return {
     title: `${meta.title} | Galina Baleva`,
     description: meta.description,
-    alternates: { canonical },
+    alternates: { canonical, languages },
   }
 }
 

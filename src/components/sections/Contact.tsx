@@ -15,7 +15,7 @@ export default function Contact() {
   const { contact, form } = t
 
   const sectionRef = useRef<HTMLElement>(null)
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [status] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [fields, setFields] = useState({ name: '', email: '', subject: '', message: '' })
 
   useGSAP(() => {

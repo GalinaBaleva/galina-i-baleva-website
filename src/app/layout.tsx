@@ -15,9 +15,23 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://galina-baleva.com"),
   title: "Galina Baleva - Full-Stack Developer · AI Integrator · SEO/GEO Specialist",
-  description: "Full-Stack Developer · AI Integrator · SEO Specialist",
-  robots: { index: false, follow: false },
+  description: "Full-Stack Developer, AI Integrator & SEO/GEO Specialist based in Vienna. Building scalable web apps, integrating AI solutions, optimising for search.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    siteName: "Galina Baleva",
+    title: "Galina Baleva - Full-Stack Developer · AI Integrator · SEO/GEO Specialist",
+    description: "Full-Stack Developer, AI Integrator & SEO/GEO Specialist based in Vienna.",
+    images: [{ url: "/galina.jpg", width: 800, height: 800, alt: "Galina Baleva" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Galina Baleva - Full-Stack Developer · AI Integrator",
+    description: "Full-Stack Developer, AI Integrator & SEO/GEO Specialist based in Vienna.",
+    images: ["/galina.jpg"],
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
+    <html suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         {children}
       </body>

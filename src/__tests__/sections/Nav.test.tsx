@@ -1,6 +1,11 @@
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Nav from '@/app/components/Nav'
-import { LangProvider, useLang } from '@/context/LangContext'
+import { LangProvider } from '@/context/LangContext'
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: jest.fn(), replace: jest.fn(), back: jest.fn() }),
+  usePathname: () => '/',
+}))
 
 beforeEach(() => {
   const mockObserver = { observe: jest.fn(), disconnect: jest.fn(), unobserve: jest.fn() }
@@ -16,27 +21,26 @@ function renderNav() {
 }
 
 describe('Nav — logo', () => {
-  it('renders the logo link to #hero', () => {
+  it('renders the logo link pointing to /bg for default BG lang', () => {
     renderNav()
     const logo = screen.getByRole('link', { name: /galina/i })
-    expect(logo).toHaveAttribute('href', '#hero')
+    expect(logo).toHaveAttribute('href', '/bg')
   })
 })
 
 describe('Nav — desktop links', () => {
   it('renders all 4 nav links from the BG locale', () => {
     renderNav()
-    // BG locale labels
-    const labels = ['За мен', 'Умения', 'Проекти', 'Контакт']
+    const labels = ['За мен', 'Умения', 'Сертификати', 'Контакт']
     for (const label of labels) {
       expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0)
     }
   })
 
-  it('nav links point to the correct hrefs', () => {
+  it('nav links point to localised BG hrefs', () => {
     renderNav()
-    const hrefs = ['#about', '#skills', '#projects', '#contact']
-    for (const href of hrefs) {
+    const expectedHrefs = ['/bg/za-men', '/bg/umenya', '/bg/sertifikati', '/bg/kontakt']
+    for (const href of expectedHrefs) {
       const links = screen.getAllByRole('link').filter((l) => l.getAttribute('href') === href)
       expect(links.length).toBeGreaterThan(0)
     }
@@ -51,12 +55,10 @@ describe('Nav — language switcher', () => {
     }
   })
 
-  it('clicking a language button switches the active language', () => {
-    // Spy on setLang indirectly: after clicking DE the DE button should be data-active=true
+  it('clicking DE makes it the active language', () => {
     renderNav()
     const deButtons = screen.getAllByRole('button', { name: 'DE' })
     fireEvent.click(deButtons[0])
-    // After switching, DE button(s) should have data-active="true"
     const updatedDe = screen.getAllByRole('button', { name: 'DE' })
     expect(updatedDe.some((b) => b.getAttribute('data-active') === 'true')).toBe(true)
   })
@@ -65,8 +67,7 @@ describe('Nav — language switcher', () => {
 describe('Nav — mobile hamburger', () => {
   it('mobile menu is hidden by default', () => {
     const { container } = renderNav()
-    const mobileMenu = container.querySelector('.pointer-events-none')
-    expect(mobileMenu).toBeInTheDocument()
+    expect(container.querySelector('.pointer-events-none')).toBeInTheDocument()
   })
 
   it('toggling the hamburger removes pointer-events-none', () => {
@@ -80,7 +81,6 @@ describe('Nav — mobile hamburger', () => {
     const { container } = renderNav()
     const hamburger = screen.getByRole('button', { name: /меню/i })
     fireEvent.click(hamburger)
-    // menu is open — click the first mobile link
     const mobileLinks = container.querySelectorAll('nav > div a')
     fireEvent.click(mobileLinks[0])
     expect(container.querySelector('.pointer-events-none')).toBeInTheDocument()

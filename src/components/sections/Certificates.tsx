@@ -316,18 +316,15 @@ export default function Certificates() {
               maxHeight: '90vh',
             }}
           >
-            <img
-              src={lightbox.file}
-              alt={lightbox.name}
-              style={{
-                maxWidth: '88vw',
-                maxHeight: '80vh',
-                objectFit: 'contain',
-                borderRadius: 10,
-                boxShadow: '0 32px 80px rgba(0,0,0,.7)',
-                display: 'block',
-              }}
-            />
+            <div style={{ position: 'relative', width: 'min(88vw, 960px)', height: 'min(75vh, 680px)' }}>
+              <Image
+                src={lightbox.file}
+                alt={lightbox.name}
+                fill
+                sizes="88vw"
+                style={{ objectFit: 'contain', borderRadius: 10, boxShadow: '0 32px 80px rgba(0,0,0,.7)' }}
+              />
+            </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>
                 {lightbox.name}
