@@ -106,6 +106,7 @@ export default function Contact() {
         </div>
 
         {/* Right — form */}
+        {/* TEMPORARILY DISABLED — no backend/spam protection yet; re-enable by removing the fieldset wrapper */}
         <form className="contact-form" onSubmit={handleSubmit} noValidate
               style={{
                 flex: '1.4 1 360px',
@@ -118,6 +119,8 @@ export default function Contact() {
                 padding: 'clamp(24px, 4vw, 40px)',
                 boxShadow: '0 8px 40px rgba(0,229,255,.05)',
               }}>
+
+          <fieldset disabled style={{ border: 'none', margin: 0, padding: 0, opacity: 0.5, cursor: 'not-allowed' }}>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
                className="max-sm:grid-cols-1">
@@ -185,6 +188,8 @@ export default function Contact() {
           >
             {status === 'sending' ? '…' : form.submit}
           </button>
+
+          </fieldset>
 
           {status === 'success' && (
             <p style={{ fontSize: 13, color: 'var(--accent)' }}>{form.success}</p>
