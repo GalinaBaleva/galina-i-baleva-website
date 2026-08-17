@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -43,6 +44,13 @@ export default function RootLayout({
     <html suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         {children}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-EVEBQJCBHG" strategy="afterInteractive" />
+        <Script id="ga-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-EVEBQJCBHG');
+        `}</Script>
       </body>
     </html>
   );
