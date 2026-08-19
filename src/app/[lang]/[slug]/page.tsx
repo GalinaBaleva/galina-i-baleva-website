@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   const BASE = 'https://galina-baleva.com'
   const canonical = lang === 'DE'
-    ? `${BASE}/${slug}`
-    : `${BASE}/${langParam}/${slug}`
+    ? BASE
+    : `${BASE}/${langParam}`
 
   const languages: Record<string, string> = { 'x-default': `${BASE}/${sectionSlug('DE', section)}` }
   for (const l of VALID_LANGS) {
